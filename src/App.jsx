@@ -6,6 +6,7 @@ import { Style } from "./GlobalStyle";
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
 import { Create } from "@material-ui/icons";
+import Home from "./pages/Home";
 
 const App = () => {
   const theme = {
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<CreateAccount />} />
+            <Route path="/home" element={<Home />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
