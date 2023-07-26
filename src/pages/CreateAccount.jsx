@@ -45,6 +45,13 @@ const CreateAccount = () => {
       if (response.status === 200) {
         setErrorMessage(null);
         console.log("Account create successful.");
+
+        setFormData({
+          username: "",
+          password: "",
+          confirmPassword: "",
+        });
+
         navigate("/login");
       } else if (response.status === 400) {
         console.log("Error creating account.");
@@ -121,7 +128,7 @@ const CreateAccount = () => {
 };
 
 const Wrapper = styled.main`
-  margin-top: 100px;
+  margin-top: 5%;
 
   h1 {
     font-weight: 600;
@@ -134,7 +141,7 @@ const Wrapper = styled.main`
     margin-left: 50%;
     transform: translateX(-50%);
     width: 91%;
-    max-width: 900px;
+    max-width: 700px;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -146,6 +153,7 @@ const Wrapper = styled.main`
       display: flex;
       flex-direction: column;
       gap: 10px;
+      margin-top: 20px;
       .show-password {
         align-self: start;
         .checkbox {
@@ -198,6 +206,8 @@ const Wrapper = styled.main`
     }
     .error-message {
       color: #eb1313;
+      position: absolute;
+      top: 10px;
     }
   }
 `;
