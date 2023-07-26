@@ -25,7 +25,7 @@ const Login = () => {
           />
           <label htmlFor="password">Enter your password:</label>
           <input
-            type={showPassword ? "password" : "text"}
+            type={showPassword ? "text" : "password"}
             required
             placeholder="Enter your password"
           />
@@ -39,6 +39,8 @@ const Login = () => {
             <span>Show password</span>
           </div>
         </div>
+
+        <hr />
 
         <div className="link-to-register">
           Don't have an account? <Link to="/register">Register now</Link>

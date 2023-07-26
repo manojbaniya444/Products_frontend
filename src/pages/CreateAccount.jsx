@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
-import { useAuthContext } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     confirmPassword: "",
   });
 
-  const { state, dispatch } = useAuthContext();
+  const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -28,20 +29,41 @@ const CreateAccount = () => {
     }
   }, [formData]);
 
-
   // Form submit and account create handler
-  const formSubmitHandler = (e) => {
+  const formSubmitHandler = async (e) => {
     e.preventDefault();
-    dispatch({ type: "USER_LOGIN", payload: formData });
-  };
-  console.log(passwordValid);
 
-  console.log(formData);
+    try {
+      const response = await fetch("http://localhost:8080/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (response.status === 200) {
+        setErrorMessage(null);
+        console.log("Account create successful.");
+        navigate("/login");
+      } else if (response.status === 400) {
+        console.log("Error creating account.");
+        setErrorMessage(data.errorMessage);
+      }
+    } catch (error) {
+      console.log("catch error", error);
+    }
+  };
+
+  //! need to refactor for the useReducer
+  //* need to refactor for the useReducer
+  //TODO need to refactor for the useReducer
 
   return (
     <Wrapper>
       <h1>Create new account</h1>
       <form onSubmit={formSubmitHandler}>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <div className="fields">
           <label htmlFor="username">Username:</label>
           <input
@@ -85,6 +107,7 @@ const CreateAccount = () => {
         <div className="link-to-login">
           Already logged in? <Link to="/">Login now</Link>
         </div>
+
         <button
           disabled={!passwordValid}
           type="submit"
@@ -172,6 +195,9 @@ const Wrapper = styled.main`
       color: white;
       border: none;
       border-radius: 9px;
+    }
+    .error-message {
+      color: #eb1313;
     }
   }
 `;
