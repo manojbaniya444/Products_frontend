@@ -128,7 +128,7 @@ const CreateAccount = () => {
 };
 
 const Wrapper = styled.main`
-  margin-top: 5%;
+  margin-top: 90px;
 
   h1 {
     font-weight: 600;

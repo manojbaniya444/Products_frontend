@@ -24,6 +24,7 @@ const Login = () => {
     try {
       const response = await fetch("http://localhost:8080/users/login", {
         method: "POST",
+        // credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -49,6 +50,8 @@ const Login = () => {
           username: "",
           password: "",
         });
+        // console.log(data.accessToken);
+        localStorage.setItem("access-token", data.accessToken);
         navigate("/home");
       }
       //! TILL HERE SWITCH CASE REPLACE ELSE IF
@@ -106,8 +109,7 @@ const Login = () => {
 };
 
 const Wrapper = styled.main`
-  margin-top: 5%;
-
+  margin-top: 90px;
   h1 {
     text-align: center;
     font-weight: 600;
@@ -117,7 +119,6 @@ const Wrapper = styled.main`
     color: #cb0808;
     position: absolute;
     top: 10px;
-
   }
 
   form {
