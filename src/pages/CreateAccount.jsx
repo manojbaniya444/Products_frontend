@@ -112,7 +112,7 @@ const CreateAccount = () => {
         </div>
         <hr />
         <div className="link-to-login">
-          Already logged in? <Link to="/">Login now</Link>
+          Already logged in? <Link to="/login">Login now</Link>
         </div>
 
         <button
@@ -128,7 +128,7 @@ const CreateAccount = () => {
 };
 
 const Wrapper = styled.main`
-  margin-top: 90px;
+  margin-top: 30px;
 
   h1 {
     font-weight: 600;

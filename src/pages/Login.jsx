@@ -52,7 +52,7 @@ const Login = () => {
         });
         // console.log(data.accessToken);
         localStorage.setItem("access-token", data.accessToken);
-        navigate("/home");
+        navigate("/");
       }
       //! TILL HERE SWITCH CASE REPLACE ELSE IF
     } catch (error) {
@@ -109,7 +109,12 @@ const Login = () => {
 };
 
 const Wrapper = styled.main`
-  margin-top: 90px;
+  margin-top: 30px;
+  background-color: #ffffff;
+  /* background-image: url("dot.avif");
+  background-repeat: repeat; */
+
+  /* height: 100vh; */
   h1 {
     text-align: center;
     font-weight: 600;
@@ -123,6 +128,7 @@ const Wrapper = styled.main`
 
   form {
     max-width: 500px;
+    background-color: white;
     width: 90%;
     margin-left: 50%;
     margin-top: 20px;
