@@ -5,14 +5,16 @@ import { Style } from "./GlobalStyle";
 
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
-import { Create } from "@material-ui/icons";
 import Home from "./pages/Home";
+import AdminPage from "./AdminPage";
+import Navbar from "./components/Navbar";
+import SingleProductDetail from "./components/SingleProductDetail";
 
 const App = () => {
   const theme = {
     colors: {
       background: "#ffffff",
-      background2: "#f5f5f5",
+      background2: "#e3e3e3",
       gray: "#cccccc",
       main: "#FF6600",
       main2: "#ff983f",
@@ -25,11 +27,15 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <Style />
         <BrowserRouter>
+          <Navbar />
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<CreateAccount />} />
-            <Route path="/home" element={<Home />} />
+            <Route
+              path="/products/:productId"
+              element={<SingleProductDetail />}
+            />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
