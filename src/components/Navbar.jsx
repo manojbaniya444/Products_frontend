@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LoginIcon from "@mui/icons-material/Login";
+import PersonIcon from "@mui/icons-material/Person";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../context/authContext";
 
 const Navbar = () => {
+  const [currentUser, setCurrentUser] = useState("");
+  const { isLogin, loggedInStatusChanged } = useAuthContext();
+
+  console.log("navbar rendered");
+
+  useEffect(() => {
+    setCurrentUser(localStorage.getItem("current-user"));
+    console.log("useeffect rendered");
+  }, [loggedInStatusChanged]);
+
+  // console.log(user);
   return (
     <Wrapper>
       <nav>
@@ -19,9 +32,20 @@ const Navbar = () => {
           <div className="link">
             <FavoriteBorderIcon /> Wish list
           </div>
-          <Link style={{ textDecoration: "none", color: "white" }} to="/login">
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            to={isLogin ? "/account" : "/login"}
+          >
             <div className="link">
-              <LoginIcon /> Sign In
+              {isLogin ? (
+                <>
+                  <PersonIcon /> {localStorage.getItem("current-user")}
+                </>
+              ) : (
+                <>
+                  <LoginIcon /> Sign-in
+                </>
+              )}
             </div>
           </Link>
         </div>
