@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import AdminPage from "./AdminPage";
 import Navbar from "./components/Navbar";
 import SingleProductDetail from "./components/SingleProductDetail";
+import UserAccount from "./pages/UserAccount";
 
 const App = () => {
   const theme = {
@@ -36,6 +37,7 @@ const App = () => {
               path="/products/:productId"
               element={<SingleProductDetail />}
             />
+            <Route path="/account" element={<UserAccount />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

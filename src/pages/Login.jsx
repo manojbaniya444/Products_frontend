@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context/authContext";
+// import axios from "axios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,6 +12,10 @@ const Login = () => {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState(null);
+
+  // axios.defaults.withCredentials = true;
+
+  const { setLoggedInStatusChanged, loggedInStatusChanged } = useAuthContext();
 
   const navigate = useNavigate();
 
@@ -31,6 +37,17 @@ const Login = () => {
         body: JSON.stringify(formData),
       });
 
+      // const response = await axios.post(
+      //   "http://localhost:8080/users/login",
+      //   JSON.stringify(formData),
+      //   {
+      //     withCredentials: true,
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
+
       //! 400 -> User doesn't exist on database error
       //! 401 -> Incorrect password error
       //! 200 -> Logged in successful response
@@ -51,7 +68,10 @@ const Login = () => {
           password: "",
         });
         // console.log(data.accessToken);
+        setLoggedInStatusChanged(!loggedInStatusChanged);
         localStorage.setItem("access-token", data.accessToken);
+        console.log(data?.username);
+        localStorage.setItem("current-user", data?.username);
         navigate("/");
       }
       //! TILL HERE SWITCH CASE REPLACE ELSE IF
