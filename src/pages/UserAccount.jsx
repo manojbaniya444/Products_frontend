@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/authContext";
+import AddUserProduct from "../components/AddUserProduct";
 
 const UserAccount = () => {
   const [currentUser, setCurrentUser] = useState();
@@ -18,10 +19,15 @@ const UserAccount = () => {
     setCurrentUser(localStorage.getItem("current-user"));
   }, []);
   return (
-    <Wrapper>
-      <p>Curret user logged in: {currentUser ? currentUser : "First log in"}</p>
-      {isLogin ? <button onClick={logoutHandler}>Logout</button> : null}
-    </Wrapper>
+    <>
+      <Wrapper>
+        <p>
+          Curret user logged in: {currentUser ? currentUser : "First log in"}
+        </p>
+        {isLogin ? <button onClick={logoutHandler}>Logout</button> : null}
+      </Wrapper>
+      <AddUserProduct />
+    </>
   );
 };
 

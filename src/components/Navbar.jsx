@@ -12,11 +12,11 @@ const Navbar = () => {
   const [currentUser, setCurrentUser] = useState("");
   const { isLogin, loggedInStatusChanged } = useAuthContext();
 
-  console.log("navbar rendered");
+  // console.log("navbar rendered");
 
   useEffect(() => {
     setCurrentUser(localStorage.getItem("current-user"));
-    console.log("useeffect rendered");
+    // console.log("useeffect rendered");
   }, [loggedInStatusChanged]);
 
   // console.log(user);
@@ -61,9 +61,11 @@ const Navbar = () => {
           <input type="search" placeholder="Enter keywords to search" />
           <SearchIcon />
         </div>
-        <div className="search__section__cart">
-          <ShoppingCartIcon />
-        </div>
+        <Link to="/cart" style={{ textDecoration: "none", color: "white" }}>
+          <div className="search__section__cart">
+            <ShoppingCartIcon />
+          </div>
+        </Link>
       </section>
     </Wrapper>
   );
