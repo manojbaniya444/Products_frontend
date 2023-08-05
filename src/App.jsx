@@ -10,6 +10,7 @@ import AdminPage from "./AdminPage";
 import Navbar from "./components/Navbar";
 import SingleProductDetail from "./components/SingleProductDetail";
 import UserAccount from "./pages/UserAccount";
+import UserCart from "./components/UserCart";
 
 const App = () => {
   const theme = {
@@ -38,6 +39,7 @@ const App = () => {
               element={<SingleProductDetail />}
             />
             <Route path="/account" element={<UserAccount />} />
+            <Route path="/cart" element={<UserCart />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

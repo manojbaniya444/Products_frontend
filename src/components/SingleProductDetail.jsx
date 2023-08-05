@@ -2,11 +2,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
+import { useAuthContext } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const SingleProductDetail = () => {
   const [singleProduct, setSingleProduct] = useState();
   const [loading, setLoading] = useState(false);
   const { productId } = useParams();
+
+  const { isLogin } = useAuthContext();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSingleProduct = async () => {
@@ -23,6 +29,14 @@ const SingleProductDetail = () => {
 
     fetchSingleProduct();
   }, []);
+
+  const addCartHandler = () => {
+    if (!isLogin) {
+      alert("Login to add to cart");
+    } else {
+      navigate("/cart");
+    }
+  };
 
   if (loading) return <h1 style={{ textAlign: "center" }}>Loading</h1>;
 
@@ -50,6 +64,7 @@ const SingleProductDetail = () => {
             Description: {singleProduct?.description}
           </p>
         </div>
+        <button onClick={addCartHandler}>Add to cart</button>
       </article>
     </Wrapper>
   );
@@ -60,6 +75,17 @@ const SingleProductDetail = () => {
 //! style this page
 
 const Wrapper = styled.div`
+  button {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.main};
+    color: white;
+  }
   .article {
     max-width: 900px;
     width: 100%;
