@@ -38,6 +38,7 @@ const Wrapper = styled.div`
   align-items: center;
   gap: 20px;
   margin-top: 20px;
+  position: relative;
   p {
     font-size: 1.25rem;
     font-weight: 600;

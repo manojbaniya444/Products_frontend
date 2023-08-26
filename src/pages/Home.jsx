@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import FeaturedProducts from "../components/FeaturedProducts";
 import { ProductProvider } from "../context/productContext";
+import UserProducts from "../components/UserProducts";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Home = () => {
       <ProductProvider>
         <section>
           <FeaturedProducts />
+          <UserProducts />
         </section>
       </ProductProvider>
     </Wrapper>
