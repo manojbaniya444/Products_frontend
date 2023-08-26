@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import SingleProductDetail from "./components/SingleProductDetail";
 import UserAccount from "./pages/UserAccount";
 import UserCart from "./components/UserCart";
+import UserSingleProduct from "./components/UserSingleProduct";
 
 const App = () => {
   const theme = {
@@ -37,6 +38,10 @@ const App = () => {
             <Route
               path="/products/:productId"
               element={<SingleProductDetail />}
+            />
+            <Route
+              path="/user-products/:productId"
+              element={<UserSingleProduct />}
             />
             <Route path="/account" element={<UserAccount />} />
             <Route path="/cart" element={<UserCart />} />

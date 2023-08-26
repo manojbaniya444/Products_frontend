@@ -5,7 +5,7 @@ import { styled } from "styled-components";
 import { useAuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 
-const SingleProductDetail = () => {
+const UserSingleProduct = () => {
   const [singleProduct, setSingleProduct] = useState();
   const [loading, setLoading] = useState(false);
   const { productId } = useParams();
@@ -18,9 +18,9 @@ const SingleProductDetail = () => {
     const fetchSingleProduct = async () => {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:8080/api/v1/products/${productId}`
+        `http://localhost:8080/user-products/${productId}`
       );
-      console.log(response.data);
+    //   console.log(response.data);
       setLoading(false);
       if (response.status === 200) {
         setSingleProduct(response.data);
@@ -113,4 +113,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default SingleProductDetail;
+export default UserSingleProduct;

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import axios from "axios";
+import Notification from "./Notification";
 
 const AddUserProduct = () => {
+  const [notification, setNotification] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     available: true,
@@ -11,6 +13,16 @@ const AddUserProduct = () => {
     url: "",
     description: "",
   });
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setNotification(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [notification]);
 
   const handleInputChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -35,84 +47,103 @@ const AddUserProduct = () => {
 
   const userProductAddHandler = async (e) => {
     e.preventDefault();
+    console.log(formData);
 
     try {
-      const response = await axios.post("http://localhost:8080/user-product/add", formData, {
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await axios.post(
+        "http://localhost:8080/user-products/add",
+        formData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       console.log(response.data);
+      setFormData({
+        name: "",
+        available: true,
+        limit: "",
+        price: "",
+        url: "",
+        description: "",
+      });
+      setNotification(true);
     } catch (error) {
-      console.log(error);
+      console.log("error in catch block" + error);
     }
   };
 
   return (
-    <Wrapper>
-      <form onSubmit={userProductAddHandler}>
-        <label htmlFor="">Product name</label>
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter the product name"
-          onChange={handleInputChange}
-          value={formData.name}
-          required
-        />
-
-        <label htmlFor="">Price</label>
-        <input
-          type="number"
-          name="price"
-          placeholder="Enter the price of your product"
-          onChange={handleInputChange}
-          value={formData.price}
-          required
-        />
-
-        <label htmlFor="">Description</label>
-        <textarea
-          name="description"
-          id=""
-          cols="30"
-          rows="10"
-          placeholder="Enter text description"
-          onChange={handleInputChange}
-          value={formData.description}
-          required
-        />
-
-        <label htmlFor="">Image url</label>
-        <input
-          type="text"
-          name="url"
-          placeholder="Enter the vaild product url"
-          value={formData.url}
-          onChange={handleInputChange}
-        />
-
-        <div className="checkbox">
-          <label htmlFor="stock">Stock</label>
+    <>
+      {notification && (
+        <Notification message={"Item addeed to the database successfully"} />
+      )}
+      <Wrapper>
+        <form onSubmit={userProductAddHandler}>
+          <label htmlFor="">Product name</label>
           <input
-            type="checkbox"
-            name="available"
-            id=""
-            defaultChecked
+            type="text"
+            name="name"
+            placeholder="Enter the product name"
             onChange={handleInputChange}
-            value={formData.available}
+            value={formData.name}
+            required
           />
-        </div>
 
-        <label htmlFor="totalItem">No of items in stock</label>
-        <input
-          type="number"
-          name="limit"
-          placeholder="Number of items in the stock"
-          value={formData.limit}
-          onChange={handleInputChange}
-        />
-        <button type="submit">Add prduct</button>
-      </form>
-    </Wrapper>
+          <label htmlFor="">Price</label>
+          <input
+            type="number"
+            name="price"
+            placeholder="Enter the price of your product"
+            onChange={handleInputChange}
+            value={formData.price}
+            required
+          />
+
+          <label htmlFor="">Description</label>
+          <textarea
+            name="description"
+            id=""
+            cols="30"
+            rows="10"
+            placeholder="Enter text description"
+            onChange={handleInputChange}
+            value={formData.description}
+            required
+          />
+
+          <label htmlFor="">Image url</label>
+          <input
+            type="text"
+            name="url"
+            placeholder="Enter the vaild product url"
+            value={formData.url}
+            onChange={handleInputChange}
+          />
+
+          <div className="checkbox">
+            <label htmlFor="stock">Stock</label>
+            <input
+              type="checkbox"
+              name="available"
+              id=""
+              defaultChecked
+              onChange={handleInputChange}
+              value={formData.available}
+            />
+          </div>
+
+          <label htmlFor="totalItem">No of items in stock</label>
+          <input
+            type="number"
+            name="limit"
+            placeholder="Number of items in the stock"
+            value={formData.limit}
+            onChange={handleInputChange}
+          />
+          <button type="submit">Add prduct</button>
+        </form>
+      </Wrapper>
+    </>
   );
 };
 
