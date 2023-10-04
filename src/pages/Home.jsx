@@ -1,8 +1,8 @@
 import React from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import FeaturedProducts from "../components/FeaturedProducts";
-import { ProductProvider } from "../context/productContext";
+// import FeaturedProducts from "../components/FeaturedProducts";
+// import { ProductProvider } from "../context/productContext";
 import UserProducts from "../components/UserProducts";
 
 const Home = () => {
@@ -15,12 +15,12 @@ const Home = () => {
 
   return (
     <Wrapper>
-      <ProductProvider>
+      {/* <ProductProvider> */}
         <section>
-          <FeaturedProducts />
+          {/* <FeaturedProducts /> */}
           <UserProducts />
         </section>
-      </ProductProvider>
+      {/* </ProductProvider> */}
     </Wrapper>
   );
 };
